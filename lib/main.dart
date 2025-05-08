@@ -31,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //int _counter = 0;
   double value = 0;
+  //List of total conversion options
   final Map<String, List<String>> conversionOptions = {
     'Kg': ['Lbs', 'Gms'],
     'Lbs': ['Kg', 'Gms'],
@@ -41,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Feet': ['Miles', 'Km', 'Meters'],
   };
 
+  //Conversion rates
   final Map<String, Map<String, double>> conversionRates = {
     'Kg': {'Lbs': 2.20462, 'Gms': 1000.0},
     'Lbs': {'Kg': 0.453592, 'Gms': 453.592},
@@ -51,20 +53,21 @@ class _MyHomePageState extends State<MyHomePage> {
     'Miles': {'Meters': 1609.34, 'Km': 1.60934, 'Feet': 5280.0},
   };
 
-  String selectedFrom = 'Kg';
-  String selectedTo = 'Lbs';
-  String resultText = '';
-  dynamic result = '';
+  String selectedFrom = 'Kg';//Default value of from
+  String selectedTo = 'Lbs';//Default value of to
+  String resultText = '';//Empty result text to show the conversion
+  dynamic result = '';//Empty result to show the conversion value
 
   void convertMetric() {
     setState(() {
-      var temp = (value * conversionRates[selectedFrom]![selectedTo]!).toStringAsFixed(3);
+      var temp = (value * conversionRates[selectedFrom]![selectedTo]!).toStringAsFixed(3);//Fixing to 3 digits decimal
       resultText = 'Super!! quick conversion from $selectedFrom to $selectedTo';
       result = '$temp $selectedTo';
     });
   }
-
+  //To control the text field
   final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {
+                        //Reset the values
                         selectedFrom = 'Kg';
                         selectedTo = 'Lbs';
                         result = '';
@@ -182,11 +186,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
+//This widget is used to add padding and expand the child widget
 class PaddedExpanded extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
 
+  //Constructor to initialize the child and padding
   const PaddedExpanded({
     Key? key,
     required this.child,
